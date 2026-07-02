@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<article class="post-wrap">
+  <a class="back-link" href="{{ '/posts/' | relative_url }}"><i data-lucide="arrow-left" aria-hidden="true"></i>All posts</a>
+
+  <header class="post-hero">
+    <h1>{{ page.title | escape_once }}</h1>
+    <div class="post-meta">
+      <span><i data-lucide="calendar-days" aria-hidden="true"></i>{{ page.date | date: "%b %-d, %Y" }}</span>
+      {% if page.read_time %}
+        <span><i data-lucide="clock-3" aria-hidden="true"></i>{{ page.read_time }}</span>
+      {% endif %}
+    </div>
+    {% if page.tags %}
+      <div class="tag-row" aria-label="Post tags">
+        {% for tag in page.tags %}
+          {% assign tag_slug = tag | slugify %}
+          <a class="tag-chip" href="{{ '/posts/#tag-' | append: tag_slug | relative_url }}">#{{ tag }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  <div class="article-prose">
+    {{ content }}
+  </div>
+
+  <nav class="post-pager" aria-label="Post navigation">
+    {% if page.previous %}
+      <a href="{{ page.previous.url | relative_url }}"><i data-lucide="arrow-left" aria-hidden="true"></i>{{ page.previous.title | escape_once }}</a>
+    {% endif %}
+    {% if page.next %}
+      <a href="{{ page.next.url | relative_url }}">{{ page.next.title | escape_once }}<i data-lucide="arrow-right" aria-hidden="true"></i></a>
+    {% endif %}
+  </nav>
+</article>

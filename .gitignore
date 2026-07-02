@@ -1,0 +1,8 @@
+_site/
+_site_drafts/
+_drafts/
+.jekyll-cache/
+.sass-cache/
+vendor/
+tmp/
+.DS_Store

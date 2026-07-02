@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% seo %}
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+          <span class="brand-mark" aria-hidden="true">KT</span>
+          <span class="brand-text">
+            <strong>{{ site.title }}</strong>
+            <small>Penetration tester</small>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="{{ '/' | relative_url }}"><i data-lucide="home" aria-hidden="true"></i><span>Home</span></a>
+          <a href="{{ '/posts/' | relative_url }}"><i data-lucide="scroll-text" aria-hidden="true"></i><span>Posts</span></a>
+        </nav>
+      </header>
+
+      <main id="content" class="site-main">
+        {{ content }}
+      </main>
+
+      <footer class="site-footer">
+        <div>
+          <strong>{{ site.author.name }}</strong>
+        </div>
+        <div class="footer-links">
+          <a href="{{ site.author.discord_url }}" rel="me noopener" target="_blank"><i data-lucide="message-circle" aria-hidden="true"></i>{{ site.author.discord }}</a>
+          <a href="{{ site.author.linkedin }}" rel="me noopener" target="_blank"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
+          <a href="{{ site.author.x }}" rel="me noopener" target="_blank"><i data-lucide="twitter" aria-hidden="true"></i>X</a>
+          <a href="{{ site.author.cv | relative_url }}" download><i data-lucide="download" aria-hidden="true"></i>CV</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="about-modal" id="about-dialog" role="dialog" aria-modal="true" aria-labelledby="about-title" hidden>
+      <div class="about-backdrop" data-about-close></div>
+      <section class="about-panel" tabindex="-1">
+        <button class="modal-close" type="button" aria-label="Close about dialog" data-about-close>
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+        <p class="pixel-kicker">About</p>
+        <h2 id="about-title">Karim Mohamed Tantawy</h2>
+        <p>
+          Pentester focused on web security, bug bounty research, exploit validation, and clean technical writeups.
+        </p>
+        <div class="about-grid">
+          <span><i data-lucide="shield-check" aria-hidden="true"></i>Pentester</span>
+          <a href="{{ site.author.discord_url }}" target="_blank" rel="noopener"><i data-lucide="message-circle" aria-hidden="true"></i>Discord: {{ site.author.discord }}</a>
+        </div>
+        <div class="social-row">
+          <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
+          <a href="{{ site.author.x }}" target="_blank" rel="noopener"><i data-lucide="twitter" aria-hidden="true"></i>X</a>
+          <a href="{{ site.author.cv | relative_url }}" download><i data-lucide="file-down" aria-hidden="true"></i>Download CV</a>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

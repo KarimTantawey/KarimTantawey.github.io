@@ -1,0 +1,84 @@
+---
+layout: default
+title: Home
+---
+
+<section class="hero">
+  <img src="{{ '/assets/img/pixel-security-banner.png' | relative_url }}" alt="Pixel art cybersecurity workstation in a blocky cave server room">
+  <div class="hero-copy">
+    <p class="pixel-kicker">Personal Blog</p>
+    <h1>Karim Mohamed Tantawy</h1>
+    <p>
+      A personal security blog for practical web exploitation notes, bug bounty research, lab writeups, and tooling ideas.
+    </p>
+    <div class="hero-actions">
+      <a class="pixel-button" href="{{ '/posts/' | relative_url }}"><i data-lucide="scroll-text" aria-hidden="true"></i>Read Posts</a>
+      <button class="pixel-button pixel-button-alt" type="button" data-about-open><i data-lucide="user-round-search" aria-hidden="true"></i>Know More About Me</button>
+      <a class="pixel-button pixel-button-ghost" href="{{ site.author.cv | relative_url }}" download><i data-lucide="download" aria-hidden="true"></i>CV</a>
+    </div>
+  </div>
+</section>
+
+<section class="home-layout" aria-label="Latest content">
+  <div class="posts-column">
+    <div class="section-heading">
+      <p class="pixel-kicker">Latest</p>
+      <h2>Recent Posts</h2>
+    </div>
+
+    <div class="post-list">
+      {% if site.posts.size > 0 %}
+        {% for post in site.posts limit: 6 %}
+          <article class="post-card">
+            <div class="post-card-top">
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+              {% if post.read_time %}<span>{{ post.read_time }}</span>{% endif %}
+            </div>
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape_once }}</a></h3>
+            {% if post.excerpt %}
+              <p>{{ post.excerpt | strip_html | truncate: 155 }}</p>
+            {% endif %}
+            {% if post.tags %}
+              <div class="tag-row">
+                {% for tag in post.tags limit: 3 %}
+                  {% assign tag_slug = tag | slugify %}
+                  <a class="tag-chip" href="{{ '/posts/#tag-' | append: tag_slug | relative_url }}">#{{ tag }}</a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="empty-state">No posts yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <aside class="side-stack" aria-label="Profile and tags">
+    <section class="profile-panel">
+      <p class="pixel-kicker">Profile</p>
+      <h2>{{ site.author.name }}</h2>
+      <p>Pentester building a public notebook for security research and practical writeups.</p>
+      <div class="social-row vertical">
+        <a href="{{ site.author.discord_url }}" target="_blank" rel="noopener"><i data-lucide="message-circle" aria-hidden="true"></i>{{ site.author.discord }}</a>
+        <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
+        <a href="{{ site.author.x }}" target="_blank" rel="noopener"><i data-lucide="twitter" aria-hidden="true"></i>X</a>
+      </div>
+    </section>
+
+    <section class="tag-panel">
+      <p class="pixel-kicker">Tags</p>
+      <div class="tag-cloud">
+        {% if site.tags.size > 0 %}
+          {% for tag in site.tags %}
+            {% assign tag_name = tag[0] %}
+            {% assign tag_slug = tag_name | slugify %}
+            <a href="{{ '/posts/#tag-' | append: tag_slug | relative_url }}">#{{ tag_name }}</a>
+          {% endfor %}
+        {% else %}
+          <span>No tags yet</span>
+        {% endif %}
+      </div>
+    </section>
+  </aside>
+</section>

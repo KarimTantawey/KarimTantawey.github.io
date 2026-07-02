@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<article class="page-wrap">
+  <header class="page-header">
+    <p class="pixel-kicker">{{ page.kicker | default: "Page" }}</p>
+    <h1>{{ page.title | escape_once }}</h1>
+    {% if page.description %}
+      <p>{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <div class="article-prose">
+    {{ content }}
+  </div>
+</article>

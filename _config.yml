@@ -1,0 +1,46 @@
+title: "Karim Tantawy"
+description: "Personal blog of Karim Mohamed Tantawy."
+lang: "en"
+timezone: "Etc/UTC"
+
+# For a user/organization site named USERNAME.github.io, keep baseurl empty.
+# For a project site like USERNAME.github.io/blog, set baseurl to "/blog".
+url: "https://karimtantawey.github.io"
+baseurl: ""
+
+author:
+  name: "Karim Mohamed Tantawy"
+  role: "Pentester"
+  discord: "marco_71"
+  discord_url: "https://discord.com/users/414756858935377921"
+  linkedin: "https://www.linkedin.com/in/karim-tantawy-7118b931b/"
+  x: "https://x.com/KarimTantawy71"
+  cv: "/assets/cv/Karim_Tantawy_CV_Pentester.pdf"
+
+permalink: "/posts/:title/"
+markdown: kramdown
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Karim Mohamed Tantawy"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - _site_drafts
+  - tmp
+  - vendor
