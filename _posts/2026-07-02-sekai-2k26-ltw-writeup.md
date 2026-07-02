@@ -188,9 +188,9 @@ If the final note body is the mixed state, the note is permanently useful:
 
 Once that happens, there is no admin-bot timing anymore. Submit the URL and it just works.
 
-## Builder
+## Solver
 
-This is the builder I used.
+This is the solver I used.
 
 ```python
 #!/usr/bin/env python3
