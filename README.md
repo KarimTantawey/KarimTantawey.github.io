@@ -1,4 +1,4 @@
-# Karim Tantawy Blog
+# Marco Blog
 
 A GitHub Pages-ready Jekyll blog with a pixel/Minecraft-inspired security style.
 

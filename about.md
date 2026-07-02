@@ -3,10 +3,10 @@ layout: page
 title: About
 permalink: /about/
 kicker: Profile
-description: "Karim Mohamed Tantawy, pentester."
+description: "Marco, pentester."
 ---
 
-## Karim Mohamed Tantawy
+## Marco
 
 I am a pentester focused on web security, bug bounty research, and exploit validation. This blog is my public notebook for writeups, methodology, lab notes, and security tooling ideas.
 

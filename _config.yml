@@ -1,5 +1,5 @@
-title: "Karim Tantawy"
-description: "Personal blog of Karim Mohamed Tantawy."
+title: "Marco"
+description: "Personal blog of Marco."
 lang: "en"
 timezone: "Etc/UTC"
 
@@ -9,7 +9,7 @@ url: "https://karimtantawey.github.io"
 baseurl: ""
 
 author:
-  name: "Karim Mohamed Tantawy"
+  name: "Marco"
   role: "Pentester"
   discord: "marco_71"
   discord_url: "https://discord.com/users/414756858935377921"
@@ -35,7 +35,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "Karim Mohamed Tantawy"
+      author: "Marco"
 
 exclude:
   - README.md
