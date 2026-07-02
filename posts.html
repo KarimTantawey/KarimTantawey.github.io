@@ -5,7 +5,7 @@ permalink: /posts/
 kicker: Archive
 ---
 
-<div class="archive-list">
+<div class="archive-list" data-search-scope>
   {% if site.posts.size > 0 %}
     <div class="archive-tools">
       <label class="search-box" for="archive-post-search">
@@ -40,6 +40,7 @@ kicker: Archive
         </div>
       </article>
     {% endfor %}
+    <p class="empty-state search-empty" data-search-empty hidden>No matching posts.</p>
   {% else %}
     <p class="empty-state">No posts yet.</p>
   {% endif %}

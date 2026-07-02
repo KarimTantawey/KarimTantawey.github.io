@@ -54,9 +54,10 @@
     if (!inputs.length) return;
 
     inputs.forEach(function (input) {
-      var scope = input.closest(".home-layout") || input.closest(".page-wrap") || document;
+      var scope = input.closest("[data-search-scope]") || input.closest(".home-layout") || input.closest(".page-wrap") || document;
       var items = Array.prototype.slice.call(scope.querySelectorAll("[data-search-item]"));
       var counter = scope.querySelector("[data-search-count]");
+      var empty = scope.querySelector("[data-search-empty]");
 
       if (!items.length) return;
 
@@ -74,7 +75,7 @@
 
         items.forEach(function (item) {
           var haystack = ((item.dataset.searchText || "") + " " + item.textContent).toLowerCase();
-          var matches = terms.every(function (term) {
+          var matches = !terms.length || terms.every(function (term) {
             return haystack.indexOf(term) !== -1;
           });
 
@@ -83,10 +84,20 @@
           if (matches) visible += 1;
         });
 
+        if (empty) {
+          empty.hidden = !query || visible > 0;
+        }
+
         setCounter(visible, query);
       }
 
       input.addEventListener("input", runSearch);
+      input.addEventListener("search", runSearch);
+
+      if (window.location.hash.indexOf("#tag-") === 0 && input.id === "archive-post-search") {
+        input.value = decodeURIComponent(window.location.hash.replace("#tag-", ""));
+      }
+
       runSearch();
     });
   }
@@ -135,29 +146,71 @@
 
       nav.hidden = false;
 
-      if ("IntersectionObserver" in window) {
-        var links = Array.prototype.slice.call(linkWrap.querySelectorAll("a"));
+      var links = Array.prototype.slice.call(linkWrap.querySelectorAll("a"));
+      var ticking = false;
 
-        function setActive(id) {
-          links.forEach(function (link) {
-            link.classList.toggle("is-active", link.getAttribute("href") === "#" + id);
-          });
-        }
-
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              setActive(entry.target.id);
-            }
-          });
-        }, {
-          rootMargin: "-12% 0px -72% 0px",
-          threshold: 0
+      function setActive(id) {
+        links.forEach(function (link) {
+          link.classList.toggle("is-active", link.getAttribute("href") === "#" + id);
         });
+      }
+
+      function currentHeadingId() {
+        var marker = window.scrollY + Math.max(120, window.innerHeight * 0.2);
+        var current = headings[0].id;
 
         headings.forEach(function (heading) {
-          observer.observe(heading);
+          if (heading.offsetTop <= marker) {
+            current = heading.id;
+          }
         });
+
+        return current;
+      }
+
+      function updateActive() {
+        setActive(currentHeadingId());
+        ticking = false;
+      }
+
+      function requestActiveUpdate() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(updateActive);
+      }
+
+      function scrollToHashSection() {
+        if (!window.location.hash) return false;
+
+        var id = decodeURIComponent(window.location.hash.slice(1));
+        var target = headings.find(function (heading) {
+          return heading.id === id;
+        });
+
+        if (!target) return false;
+
+        target.scrollIntoView();
+        setActive(id);
+        return true;
+      }
+
+      links.forEach(function (link) {
+        link.addEventListener("click", function () {
+          var id = link.getAttribute("href").slice(1);
+          setActive(id);
+        });
+      });
+
+      window.addEventListener("scroll", requestActiveUpdate, { passive: true });
+      window.addEventListener("resize", requestActiveUpdate);
+      window.addEventListener("hashchange", function () {
+        if (!scrollToHashSection()) {
+          requestActiveUpdate();
+        }
+      });
+
+      if (!scrollToHashSection()) {
+        setActive(currentHeadingId());
       }
     });
   }

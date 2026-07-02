@@ -18,7 +18,7 @@ title: Home
   </div>
 </section>
 
-<section class="home-layout" aria-label="Latest content">
+<section class="home-layout" data-search-scope aria-label="Latest content">
   <div class="posts-column">
     <div class="section-heading">
       <p class="pixel-kicker">Latest</p>
@@ -48,6 +48,7 @@ title: Home
             {% endif %}
           </article>
         {% endfor %}
+        <p class="empty-state search-empty" data-search-empty hidden>No matching posts.</p>
       {% else %}
         <p class="empty-state">No posts yet.</p>
       {% endif %}
