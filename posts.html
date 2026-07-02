@@ -7,6 +7,14 @@ kicker: Archive
 
 <div class="archive-list">
   {% if site.posts.size > 0 %}
+    <div class="archive-tools">
+      <label class="search-box" for="archive-post-search">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <input id="archive-post-search" type="search" data-post-search placeholder="Search posts, tags, code" autocomplete="off">
+      </label>
+      <span class="search-count" data-search-count aria-live="polite"></span>
+    </div>
+
     <div class="tag-cloud archive-tags" aria-label="Post tags">
       {% for tag in site.tags %}
         {% assign tag_name = tag[0] %}
@@ -16,7 +24,8 @@ kicker: Archive
     </div>
 
     {% for post in site.posts %}
-      <article class="archive-item">
+      {% capture search_text %}{{ post.title }} {{ post.excerpt | strip_html }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines }}{% endcapture %}
+      <article class="archive-item" data-search-item data-search-text="{{ search_text | strip | escape }}">
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
         <div>
           <h2><a href="{{ post.url | relative_url }}">{{ post.title | escape_once }}</a></h2>

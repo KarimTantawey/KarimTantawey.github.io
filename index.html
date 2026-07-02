@@ -14,7 +14,6 @@ title: Home
     <div class="hero-actions">
       <a class="pixel-button" href="{{ '/posts/' | relative_url }}"><i data-lucide="scroll-text" aria-hidden="true"></i>Read Posts</a>
       <button class="pixel-button pixel-button-alt" type="button" data-about-open><i data-lucide="user-round-search" aria-hidden="true"></i>Know More About Me</button>
-      <a class="pixel-button pixel-button-ghost" href="{{ site.author.cv | relative_url }}" download><i data-lucide="download" aria-hidden="true"></i>CV</a>
     </div>
   </div>
 </section>
@@ -29,7 +28,8 @@ title: Home
     <div class="post-list">
       {% if site.posts.size > 0 %}
         {% for post in site.posts limit: 6 %}
-          <article class="post-card">
+          {% capture search_text %}{{ post.title }} {{ post.excerpt | strip_html }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines }}{% endcapture %}
+          <article class="post-card" data-search-item data-search-text="{{ search_text | strip | escape }}">
             <div class="post-card-top">
               <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
               {% if post.read_time %}<span>{{ post.read_time }}</span>{% endif %}
@@ -54,18 +54,7 @@ title: Home
     </div>
   </div>
 
-  <aside class="side-stack" aria-label="Profile and tags">
-    <section class="profile-panel">
-      <p class="pixel-kicker">Profile</p>
-      <h2>{{ site.author.name }}</h2>
-      <p>Pentester building a public notebook for security research and practical writeups.</p>
-      <div class="social-row vertical">
-        <a href="{{ site.author.discord_url }}" target="_blank" rel="noopener"><i data-lucide="message-circle" aria-hidden="true"></i>{{ site.author.discord }}</a>
-        <a href="{{ site.author.linkedin }}" target="_blank" rel="noopener"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
-        <a href="{{ site.author.x }}" target="_blank" rel="noopener"><i data-lucide="twitter" aria-hidden="true"></i>X</a>
-      </div>
-    </section>
-
+  <aside class="side-stack" aria-label="Post tools">
     <section class="tag-panel">
       <p class="pixel-kicker">Tags</p>
       <div class="tag-cloud">
@@ -79,6 +68,15 @@ title: Home
           <span>No tags yet</span>
         {% endif %}
       </div>
+    </section>
+
+    <section class="search-panel">
+      <p class="pixel-kicker">Search</p>
+      <label class="search-box" for="home-post-search">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <input id="home-post-search" type="search" data-post-search placeholder="Search posts, tags, code" autocomplete="off">
+      </label>
+      <p class="search-count" data-search-count aria-live="polite"></p>
     </section>
   </aside>
 </section>
