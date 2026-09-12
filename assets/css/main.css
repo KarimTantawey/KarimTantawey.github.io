@@ -497,6 +497,7 @@ button {
 .article-prose code {
   padding: 2px 4px;
   background: var(--inline-code);
+  color: var(--accent);
   font: 0.85em var(--mono);
 }
 
@@ -504,8 +505,9 @@ button {
   max-width: 100%;
   overflow-x: auto;
   padding: 20px;
-  background: #292c28;
-  color: #ecece0;
+  border: 1px solid #394456;
+  background: #151a23;
+  color: #e3e9f2;
   font-size: 0.9375rem;
   line-height: 1.75;
   tab-size: 2;
@@ -514,6 +516,7 @@ button {
 .article-prose pre code {
   padding: 0;
   background: transparent;
+  color: inherit;
   font-size: 0.875rem;
   line-height: inherit;
 }
@@ -536,7 +539,7 @@ div.highlighter-rouge::before {
   top: 12px;
   left: 20px;
   content: "Code";
-  color: #c2c4b9;
+  color: #a0b4d6;
   font: 400 0.6875rem/1.5 var(--mono);
 }
 
@@ -545,13 +548,17 @@ div.language-python::before { content: "Python"; }
 div.language-html::before { content: "HTML"; }
 div.language-text::before { content: "Text"; }
 
-.highlight :is(.c, .c1, .cm) { color: #b3b7a9; }
-.highlight :is(.k, .kd, .kn, .kp, .kr, .kt, .nt) { color: #efb5a2; }
-.highlight :is(.s, .s1, .s2, .se, .sh) { color: #c5d9b5; }
-.highlight :is(.m, .mi, .mf) { color: #e8cb94; }
-.highlight :is(.o, .ow, .na, .nv) { color: #b3d3ce; }
-.highlight :is(.nf, .nb, .nc) { color: #d6c4de; }
-.highlight .err { color: #ffb8ab; }
+.highlight :is(.c, .c1, .cm, .cp, .cpf, .cs, .ch) { color: #9daecc; font-style: italic; }
+.highlight :is(.k, .kc, .kd, .kn, .kp, .kr, .kv) { color: #ff7eb6; }
+.highlight :is(.kt, .nb, .bp, .nc, .nn) { color: #65dfd4; }
+.highlight :is(.nf, .fm, .nd) { color: #8dbbff; }
+.highlight :is(.s, .s1, .s2, .sa, .sb, .sc, .sd, .sh, .sx, .sr, .ss, .dl) { color: #b3e57e; }
+.highlight :is(.se, .si, .ni, .m, .mb, .mi, .mf, .mh, .mo, .il) { color: #ffbe83; }
+.highlight :is(.o, .ow, .no) { color: #ffda7b; }
+.highlight .na { color: #cfa3ff; }
+.highlight :is(.nv, .vc, .vg, .vi, .vm) { color: #ffd491; }
+.highlight :is(.nt, .err) { color: #ff8f9b; }
+.highlight .p { color: #b3c4df; }
 
 .article-prose blockquote,
 .article-prose .callout {
