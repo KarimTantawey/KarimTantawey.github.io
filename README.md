@@ -11,6 +11,14 @@ bundle exec jekyll serve --host 0.0.0.0 --port 34567
 
 Then open `http://localhost:34567`. Jekyll watches local changes; refresh the page to see them.
 
+## Saved Designs
+
+The first dark redesign is saved locally on branch `checkpoint/blog-v1`, commit `7bab102`. The paper-and-ink revision is on `redesign/editorial-blog`. These branches have not been pushed.
+
+Search lives in the posts archive. The homepage shows the six most recent posts.
+
+Dark mode is the default. The header toggle switches to light mode and remembers the reader’s choice in their browser.
+
 ## Add a Post
 
 Create a new Markdown file in `_posts/` using this format:

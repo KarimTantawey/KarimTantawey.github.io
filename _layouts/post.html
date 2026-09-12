@@ -3,15 +3,15 @@ layout: default
 ---
 
 <article class="post-wrap">
-  <a class="back-link" href="{{ '/posts/' | relative_url }}"><i data-lucide="arrow-left" aria-hidden="true"></i>All posts</a>
+  <a class="back-link" href="{{ '/posts/' | relative_url }}"><span aria-hidden="true">←</span> All posts</a>
 
   <header class="post-hero">
     <p class="eyebrow">Writeup</p>
     <h1>{{ page.title | escape_once }}</h1>
     <div class="post-meta">
-      <span><i data-lucide="calendar-days" aria-hidden="true"></i><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time></span>
+      <span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time></span>
       {% if page.read_time %}
-        <span><i data-lucide="clock-3" aria-hidden="true"></i>{{ page.read_time }}</span>
+        <span>{{ page.read_time }}</span>
       {% endif %}
     </div>
     {% if page.tags %}
@@ -25,7 +25,7 @@ layout: default
   </header>
 
   <nav class="section-nav" data-section-nav aria-label="Post sections" hidden>
-    <p class="eyebrow">Sections</p>
+    <p class="eyebrow">On this page</p>
     <div class="section-links" data-section-links></div>
   </nav>
 
@@ -36,10 +36,10 @@ layout: default
   {% if page.previous or page.next %}
   <nav class="post-pager" aria-label="Post navigation">
     {% if page.previous %}
-      <a href="{{ page.previous.url | relative_url }}"><i data-lucide="arrow-left" aria-hidden="true"></i>{{ page.previous.title | escape_once }}</a>
+      <a href="{{ page.previous.url | relative_url }}"><span aria-hidden="true">←</span> {{ page.previous.title | escape_once }}</a>
     {% endif %}
     {% if page.next %}
-      <a href="{{ page.next.url | relative_url }}">{{ page.next.title | escape_once }}<i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      <a href="{{ page.next.url | relative_url }}">{{ page.next.title | escape_once }} <span aria-hidden="true">→</span></a>
     {% endif %}
   </nav>
   {% endif %}

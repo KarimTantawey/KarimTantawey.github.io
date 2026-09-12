@@ -1,13 +1,27 @@
 (function () {
-  function setupIcons() {
-    if (window.lucide) {
-      window.lucide.createIcons({
-        attrs: {
-          "stroke-width": 2,
-          "aria-hidden": "true"
-        }
-      });
+  function setupThemeToggle() {
+    var toggle = document.querySelector("[data-theme-toggle]");
+    if (!toggle) return;
+
+    function applyTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      var label = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+      toggle.setAttribute("aria-label", label);
+      toggle.title = label;
+      document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#1b1e1c" : "#f5f2eb";
     }
+
+    applyTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
+    toggle.hidden = false;
+    toggle.addEventListener("click", function () {
+      var theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      applyTheme(theme);
+      try {
+        localStorage.setItem("theme", theme);
+      } catch (error) {
+        // Theme switching still works when browser storage is unavailable.
+      }
+    });
   }
 
   function setupPostSearch() {
@@ -156,7 +170,7 @@
     });
   }
 
-  setupIcons();
+  setupThemeToggle();
   setupPostSearch();
   setupSectionNav();
 })();

@@ -1,33 +1,36 @@
 <!doctype html>
-<html lang="{{ site.lang | default: 'en' }}">
+<html lang="{{ site.lang | default: 'en' }}" data-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#090d12">
+    <meta name="theme-color" content="#1b1e1c">
+    <script>
+      try {
+        if (localStorage.getItem('theme') === 'light') document.documentElement.dataset.theme = 'light';
+      } catch (error) {
+        // Restricted storage keeps the default dark theme.
+      }
+    </script>
     <link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}" type="image/svg+xml">
     {% seo %}
-    <link rel="preconnect" href="https://unpkg.com">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
     <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
-    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
 
     <header class="site-header">
-      <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
-        <span class="brand-mark" aria-hidden="true">M</span>
-        <span class="brand-text">
-          <strong>{{ site.title }}</strong>
-          <small>{{ site.author.role }}</small>
-        </span>
-      </a>
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.author.name | downcase }}.</a>
 
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}><i data-lucide="terminal" aria-hidden="true"></i><span>Home</span></a>
-        <a href="{{ '/posts/' | relative_url }}"{% if page.url == '/posts/' or page.layout == 'post' %} aria-current="page"{% endif %}><i data-lucide="book-open-text" aria-hidden="true"></i><span>Posts</span></a>
-        <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}><i data-lucide="fingerprint" aria-hidden="true"></i><span>About</span></a>
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
+        <a href="{{ '/posts/' | relative_url }}"{% if page.url == '/posts/' or page.layout == 'post' %} aria-current="page"{% endif %}>Posts</a>
+        <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to light mode" title="Switch to light mode" hidden>
+          <svg class="icon-sun" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><use href="{{ '/assets/icons.svg#sun' | relative_url }}"></use></svg>
+          <svg class="icon-moon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><use href="{{ '/assets/icons.svg#moon' | relative_url }}"></use></svg>
+        </button>
       </nav>
     </header>
 
@@ -36,16 +39,13 @@
     </main>
 
     <footer class="site-footer">
-      <div>
-        <strong>{{ site.author.name }}</strong>
-        <span>Web security notes, CTF writeups, and exploit research.</span>
-      </div>
-      <div class="footer-links">
-        <a href="{{ site.author.discord_url }}" rel="me noopener" target="_blank"><i data-lucide="message-circle" aria-hidden="true"></i>{{ site.author.discord }}</a>
-        <a href="{{ site.author.linkedin }}" rel="me noopener" target="_blank"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
-        <a href="{{ site.author.x }}" rel="me noopener" target="_blank"><i data-lucide="twitter" aria-hidden="true"></i>X</a>
-        <a href="{{ site.author.cv | relative_url }}" download><i data-lucide="download" aria-hidden="true"></i>CV</a>
-      </div>
+      <p>© {{ site.time | date: "%Y" }} {{ site.author.name }}</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="{{ site.author.discord_url }}" rel="me noopener" target="_blank"><svg aria-hidden="true" focusable="false" width="16" height="16"><use href="{{ '/assets/icons.svg#discord' | relative_url }}"></use></svg>Discord</a>
+        <a href="{{ site.author.linkedin }}" rel="me noopener" target="_blank"><svg aria-hidden="true" focusable="false" width="16" height="16"><use href="{{ '/assets/icons.svg#linkedin' | relative_url }}"></use></svg>LinkedIn</a>
+        <a href="{{ site.author.x }}" rel="me noopener" target="_blank"><svg aria-hidden="true" focusable="false" width="16" height="16"><use href="{{ '/assets/icons.svg#x' | relative_url }}"></use></svg>X</a>
+        <a href="{{ site.author.cv | relative_url }}" download><svg aria-hidden="true" focusable="false" width="16" height="16"><use href="{{ '/assets/icons.svg#download' | relative_url }}"></use></svg>CV</a>
+      </nav>
     </footer>
   </body>
 </html>
