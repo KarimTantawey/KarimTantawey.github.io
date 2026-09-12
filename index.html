@@ -3,33 +3,35 @@ layout: default
 title: Home
 ---
 
-<section class="hero">
-  <img src="{{ '/assets/img/pixel-security-banner.png' | relative_url }}" alt="Pixel art cybersecurity workstation in a blocky cave server room">
+<section class="hero" aria-labelledby="home-title">
   <div class="hero-copy">
-    <p class="pixel-kicker">Personal Blog</p>
-    <h1>Marco</h1>
+    <p class="eyebrow">Security notebook</p>
+    <h1 id="home-title">Marco</h1>
     <p>
-      A personal security blog for practical web exploitation notes, bug bounty research, lab writeups, and tooling ideas.
+      Web security research, CTF writeups, and notes on turning strange behavior into reproducible bugs.
     </p>
-    <div class="hero-actions">
-      <a class="pixel-button" href="{{ '/posts/' | relative_url }}"><i data-lucide="scroll-text" aria-hidden="true"></i>Read Posts</a>
-      <button class="pixel-button pixel-button-alt" type="button" data-about-open><i data-lucide="user-round-search" aria-hidden="true"></i>Know More About Me</button>
-    </div>
+    <a class="text-link" href="{{ '/about/' | relative_url }}">About Marco <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
   </div>
+  <figure class="hero-aside">
+    <img src="{{ '/assets/img/pixel-security-banner.png' | relative_url }}" alt="">
+    <figcaption>Field notes / web security</figcaption>
+  </figure>
 </section>
 
 <section class="home-layout" data-search-scope aria-label="Latest content">
   <div class="posts-column">
     <div class="section-heading">
-      <p class="pixel-kicker">Latest</p>
-      <h2>Recent Posts</h2>
+      <div>
+        <p class="eyebrow">Latest notes</p>
+        <h2>Recent posts</h2>
+      </div>
+      <a class="text-link" href="{{ '/posts/' | relative_url }}">View archive <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
     </div>
 
     <div class="post-list">
       {% if site.posts.size > 0 %}
         {% for post in site.posts limit: 6 %}
-          {% capture search_text %}{{ post.title }} {{ post.excerpt | strip_html }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines }}{% endcapture %}
-          <article class="post-card" data-search-item data-search-text="{{ search_text | strip | escape }}">
+          <article class="post-card" data-search-item data-search-text="{{ post.tags | join: ' ' | escape }}">
             <div class="post-card-top">
               <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
               {% if post.read_time %}<span>{{ post.read_time }}</span>{% endif %}
@@ -41,8 +43,8 @@ title: Home
             {% if post.tags %}
               <div class="tag-row">
                 {% for tag in post.tags limit: 3 %}
-                  {% assign tag_slug = tag | slugify %}
-                  <a class="tag-chip" href="{{ '/posts/#tag-' | append: tag_slug | relative_url }}">#{{ tag }}</a>
+                  {% assign tag_href = tag | url_encode | replace: '+', '%20' %}
+                  <a class="tag-chip" href="{{ '/posts/#tag-' | append: tag_href | relative_url }}">#{{ tag | escape }}</a>
                 {% endfor %}
               </div>
             {% endif %}
@@ -56,28 +58,28 @@ title: Home
   </div>
 
   <aside class="side-stack" aria-label="Post tools">
+    <section class="search-panel">
+      <label class="eyebrow" for="home-post-search">Find a note</label>
+      <div class="search-box">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <input id="home-post-search" type="search" data-post-search placeholder="Search posts and tags" autocomplete="off">
+      </div>
+      <p class="search-count" data-search-count aria-live="polite"></p>
+    </section>
+
     <section class="tag-panel">
-      <p class="pixel-kicker">Tags</p>
+      <p class="eyebrow">Browse tags</p>
       <div class="tag-cloud">
         {% if site.tags.size > 0 %}
           {% for tag in site.tags %}
             {% assign tag_name = tag[0] %}
-            {% assign tag_slug = tag_name | slugify %}
-            <a href="{{ '/posts/#tag-' | append: tag_slug | relative_url }}">#{{ tag_name }}</a>
+            {% assign tag_href = tag_name | url_encode | replace: '+', '%20' %}
+            <a href="{{ '/posts/#tag-' | append: tag_href | relative_url }}">#{{ tag_name | escape }}</a>
           {% endfor %}
         {% else %}
           <span>No tags yet</span>
         {% endif %}
       </div>
-    </section>
-
-    <section class="search-panel">
-      <p class="pixel-kicker">Search</p>
-      <label class="search-box" for="home-post-search">
-        <i data-lucide="search" aria-hidden="true"></i>
-        <input id="home-post-search" type="search" data-post-search placeholder="Search posts, tags, code" autocomplete="off">
-      </label>
-      <p class="search-count" data-search-count aria-live="polite"></p>
     </section>
   </aside>
 </section>

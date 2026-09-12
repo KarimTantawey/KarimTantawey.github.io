@@ -3,29 +3,31 @@ layout: page
 title: Posts
 permalink: /posts/
 kicker: Archive
+description: "Writeups, research notes, and security experiments."
+prose: false
 ---
 
 <div class="archive-list" data-search-scope>
   {% if site.posts.size > 0 %}
     <div class="archive-tools">
-      <label class="search-box" for="archive-post-search">
+      <label for="archive-post-search">Search posts and tags</label>
+      <div class="search-box">
         <i data-lucide="search" aria-hidden="true"></i>
-        <input id="archive-post-search" type="search" data-post-search placeholder="Search posts, tags, code" autocomplete="off">
-      </label>
+        <input id="archive-post-search" type="search" data-post-search placeholder="Search posts and tags" autocomplete="off">
+      </div>
       <span class="search-count" data-search-count aria-live="polite"></span>
     </div>
 
     <div class="tag-cloud archive-tags" aria-label="Post tags">
       {% for tag in site.tags %}
         {% assign tag_name = tag[0] %}
-        {% assign tag_slug = tag_name | slugify %}
-        <span id="tag-{{ tag_slug }}">#{{ tag_name }}</span>
+        {% assign tag_fragment = tag_name | url_encode | replace: '+', '%20' %}
+        <a href="{{ '/posts/#tag-' | append: tag_fragment | relative_url }}">#{{ tag_name | escape }}</a>
       {% endfor %}
     </div>
 
     {% for post in site.posts %}
-      {% capture search_text %}{{ post.title }} {{ post.excerpt | strip_html }} {{ post.tags | join: ' ' }} {{ post.content | strip_html | strip_newlines }}{% endcapture %}
-      <article class="archive-item" data-search-item data-search-text="{{ search_text | strip | escape }}">
+      <article class="archive-item" data-search-item data-search-text="{{ post.tags | join: ' ' | escape }}">
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
         <div>
           <h2><a href="{{ post.url | relative_url }}">{{ post.title | escape_once }}</a></h2>
@@ -33,7 +35,8 @@ kicker: Archive
           {% if post.tags %}
             <div class="tag-row">
               {% for tag in post.tags %}
-                <span class="tag-chip">#{{ tag }}</span>
+                {% assign tag_fragment = tag | url_encode | replace: '+', '%20' %}
+                <a class="tag-chip" href="{{ '/posts/#tag-' | append: tag_fragment | relative_url }}">#{{ tag | escape }}</a>
               {% endfor %}
             </div>
           {% endif %}

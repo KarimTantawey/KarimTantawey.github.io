@@ -1,5 +1,5 @@
 ---
-title: 'SEKAI CTF 26 / &amp;lt;\w+'
+title: 'SEKAI CTF 26 / <\w+'
 date: 2026-07-02 18:20:00 +0000
 tags: [ctf, web, xss, race-condition]
 read_time: "9 min read"

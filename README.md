@@ -1,15 +1,15 @@
 # Marco Blog
 
-A GitHub Pages-ready Jekyll blog with a pixel/Minecraft-inspired security style.
+A GitHub Pages-ready Jekyll blog for security research and CTF writeups, with responsive layouts and client-side post search.
 
 ## Local Preview
 
 ```bash
 bundle install
-bundle exec jekyll serve --livereload
+bundle exec jekyll serve --host 0.0.0.0 --port 34567
 ```
 
-Then open `http://127.0.0.1:4000`.
+Then open `http://localhost:34567`. Jekyll watches local changes; refresh the page to see them.
 
 ## Add a Post
 
