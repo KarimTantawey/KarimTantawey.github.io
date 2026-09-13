@@ -10,6 +10,9 @@
   --field: #232823;
   --inline-code: #2c322b;
   --callout: #252c24;
+  --page-wash: rgba(142, 163, 141, 0.12);
+  --page-grid: rgba(182, 196, 156, 0.045);
+  --page-dot: rgba(182, 196, 156, 0.12);
   --serif: Georgia, "Times New Roman", serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -27,6 +30,9 @@
   --field: #faf8f3;
   --inline-code: #e9e5db;
   --callout: #ecebe1;
+  --page-wash: rgba(156, 105, 67, 0.08);
+  --page-grid: rgba(87, 95, 67, 0.045);
+  --page-dot: rgba(87, 95, 67, 0.14);
 }
 
 * {
@@ -40,7 +46,13 @@
 body {
   margin: 0;
   border-top: 4px solid var(--ink);
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(135deg, var(--page-wash), transparent 720px),
+    radial-gradient(circle, var(--page-dot) 0.7px, transparent 1px),
+    linear-gradient(var(--page-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--page-grid) 1px, transparent 1px);
+  background-size: auto, 20px 20px, 100px 100px, 100px 100px;
   color: var(--ink);
   font-size: 16px;
   line-height: 1.65;
@@ -456,6 +468,16 @@ button {
   color: var(--accent);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .section-link {
+    transition: color 180ms ease, border-color 180ms ease;
+  }
+}
+
 .article-prose {
   min-width: 0;
   font-size: 1.0625rem;
@@ -546,6 +568,9 @@ div.highlighter-rouge::before {
 div.language-go::before { content: "Go"; }
 div.language-python::before { content: "Python"; }
 div.language-html::before { content: "HTML"; }
+div.language-js::before,
+div.language-javascript::before { content: "JavaScript"; }
+div.language-http::before { content: "HTTP"; }
 div.language-text::before { content: "Text"; }
 
 .highlight :is(.c, .c1, .cm, .cp, .cpf, .cs, .ch) { color: #9daecc; font-style: italic; }
