@@ -59,7 +59,7 @@ show the WAF one filename while the backend stored another.
 
 I'm not going to detail that part here. The bypass is from my private
 research into that WAF's upload handling, it has not been fixed upstream yet,
-and I'm not publishing the technique for now. What matters for this writeup:
+and I'm not publishing the technique for now (you might be able to find something online). What matters for this writeup:
 right after the 403 above, the *same* upload flow returned a stored URL ending
 in `.html` on `files.b4nk4.tech`, served back as `text/html`, scripts and all.
 
